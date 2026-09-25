@@ -4,11 +4,550 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tally — Minimal Music & Soundscapes</title>
-  <!-- Google Fonts for Editorial Serif Typography -->
+  
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  
+  <style>
+    /* ==========================================================================
+       1. TALLY MINIMAL AESTHETIC VARIABLES & RESET
+       ========================================================================== */
+    :root {
+      --bg-warm: #fbf9f5;
+      --bg-card-light: #f7f5f0;
+      --bg-card-dark: #18181b;
+      --text-dark: #18181b;
+      --text-muted: #6b7280;
+      --text-dark-muted: #9ca3af;
+      --accent-gold: #d97706;
+      --border-card: #e5e1d8;
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --radius-card: 12px;
+      --radius-btn: 6px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-warm);
+      color: var(--text-dark);
+      line-height: 1.6;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .serif-title {
+      font-family: var(--font-serif);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    /* ==========================================================================
+       2. NAVBAR
+       ========================================================================== */
+    .navbar {
+      background-color: var(--bg-warm);
+      padding: 1.5rem 3rem;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-logo {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      text-decoration: none;
+    }
+
+    .logo-dot {
+      color: var(--accent-gold);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-dark);
+      font-weight: 500;
+      font-size: 1rem;
+      transition: opacity 0.2s;
+    }
+
+    .nav-links a:hover {
+      opacity: 0.7;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .nav-link-login {
+      text-decoration: none;
+      color: var(--text-dark);
+      font-weight: 500;
+    }
+
+    .btn-dark {
+      background-color: var(--text-dark);
+      color: #fff;
+      border: none;
+      padding: 0.7rem 1.4rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: var(--radius-btn);
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .btn-dark:hover {
+      background-color: #27272a;
+    }
+
+    /* ==========================================================================
+       3. SWITCH BANNER
+       ========================================================================== */
+    .switch-banner {
+      max-width: 1200px;
+      margin: 1.5rem auto 0;
+      padding: 1.25rem 2rem;
+      background-color: #f1ede4;
+      border-radius: var(--radius-card);
+      border: 1px solid var(--border-card);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: calc(100% - 3rem);
+    }
+
+    .switch-info h4 {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .switch-info p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .toggle-switch-container {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .switch-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 26px;
+    }
+
+    .switch input { opacity: 0; width: 0; height: 0; }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #d1d5db;
+      transition: 0.3s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px; width: 18px;
+      left: 4px; bottom: 4px;
+      background-color: white;
+      transition: 0.3s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider { background-color: var(--text-dark); }
+    input:checked + .slider:before { transform: translateX(24px); }
+
+    /* ==========================================================================
+       4. HERO & AUDIO PLAYER
+       ========================================================================== */
+    .hero-section {
+      max-width: 1200px;
+      margin: 3rem auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .hero-section h1 {
+      font-size: 3.25rem;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-subtext {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+    }
+
+    .player-card {
+      background: #ffffff;
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-card);
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    }
+
+    .track-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .album-art {
+      width: 56px;
+      height: 56px;
+      background: var(--bg-card-light);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    canvas#visualizer {
+      width: 100%;
+      height: 50px;
+      background: #fdfdfd;
+      border-radius: 6px;
+      border: 1px solid #f0f0f0;
+    }
+
+    .player-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .btn-play {
+      background: var(--text-dark);
+      color: white;
+      border: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+
+    .volume-control {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* ==========================================================================
+       5. TALLY PRICING SECTION
+       ========================================================================== */
+    .pricing-section {
+      max-width: 1200px;
+      margin: 5rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .pricing-header {
+      margin-bottom: 3.5rem;
+    }
+
+    .pricing-header h2 {
+      font-size: 3.25rem;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+
+    .pricing-subtext {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      align-items: stretch;
+    }
+
+    .price-card {
+      background-color: var(--bg-card-light);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-card);
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-title {
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .price-tag {
+      display: flex;
+      align-items: baseline;
+      gap: 0.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .price-val {
+      font-size: 3.25rem;
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    .price-period {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+    }
+
+    .card-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      min-height: 45px;
+    }
+
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+      flex-grow: 1;
+    }
+
+    .feature-list li {
+      font-size: 0.95rem;
+      color: #374151;
+    }
+
+    .btn-outline-full {
+      width: 100%;
+      padding: 0.85rem;
+      background: transparent;
+      border: 1px solid var(--text-dark);
+      color: var(--text-dark);
+      font-weight: 600;
+      font-size: 1rem;
+      border-radius: var(--radius-btn);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-outline-full:hover {
+      background: rgba(0,0,0,0.04);
+    }
+
+    /* Dark Highlighted Card (Independent) */
+    .price-card.dark-card {
+      background-color: var(--bg-card-dark);
+      color: #ffffff;
+      border-color: var(--bg-card-dark);
+    }
+
+    .price-card.dark-card .badge-text {
+      font-size: 0.85rem;
+      color: var(--accent-gold);
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    .price-card.dark-card .price-period,
+    .price-card.dark-card .card-desc,
+    .price-card.dark-card .feature-list li {
+      color: var(--text-dark-muted);
+    }
+
+    .btn-primary-light {
+      width: 100%;
+      padding: 0.85rem;
+      background-color: #ffffff;
+      border: none;
+      color: var(--text-dark);
+      font-weight: 600;
+      font-size: 1rem;
+      border-radius: var(--radius-btn);
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .btn-primary-light:hover {
+      opacity: 0.9;
+    }
+
+    /* ==========================================================================
+       6. PAYMENT MODAL
+       ========================================================================== */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background: #ffffff;
+      border-radius: var(--radius-card);
+      padding: 2.25rem;
+      max-width: 460px;
+      width: 90%;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h3 {
+      font-size: 1.5rem;
+    }
+
+    .btn-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .modal-sub {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin: 0.5rem 0 1.5rem;
+    }
+
+    .payment-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .payment-option {
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-btn);
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .payment-option:hover {
+      background: var(--bg-card-light);
+    }
+
+    .option-details {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .option-icon {
+      font-size: 1.25rem;
+    }
+
+    .option-text h5 {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .option-text p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Toast */
+    .toast-notification {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--text-dark);
+      color: white;
+      padding: 0.85rem 1.4rem;
+      border-radius: var(--radius-btn);
+      font-size: 0.9rem;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 200;
+    }
+
+    .toast-notification.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero-section {
+        grid-template-columns: 1fr;
+      }
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+      .pricing-header h2, .hero-section h1 {
+        font-size: 2.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -31,7 +570,7 @@
     </div>
   </header>
 
-  <!-- TOP SWITCH BANNER (TRIGGERS PAYMENT MODAL) -->
+  <!-- TOP SWITCH BANNER -->
   <div class="switch-banner">
     <div class="switch-info">
       <h4>Membership Pass Switch</h4>
@@ -51,31 +590,31 @@
     <div class="hero-content">
       <h1 class="serif-title">Soundscapes that scale with your workflow</h1>
       <p class="hero-subtext">Start free. Upgrade the week you need custom ambient audio and lossless spatial engine output.</p>
-      
-      <!-- Interactive Web Audio Player -->
-      <div class="player-card">
-        <div class="track-meta">
-          <div class="album-art">🎧</div>
-          <div class="track-details">
-            <h3 id="trackTitle">Focus & Flow Alpha Waves</h3>
-            <p id="trackArtist">Procedural Minimal Engine</p>
-          </div>
+    </div>
+
+    <!-- Web Audio Player -->
+    <div class="player-card">
+      <div class="track-meta">
+        <div class="album-art">🎧</div>
+        <div class="track-details">
+          <h3 id="trackTitle">Focus & Flow Alpha Waves</h3>
+          <p id="trackArtist">Procedural Minimal Engine</p>
         </div>
+      </div>
 
-        <canvas id="visualizer"></canvas>
+      <canvas id="visualizer"></canvas>
 
-        <div class="player-controls">
-          <button class="btn-play" id="playBtn" aria-label="Play Track">▶</button>
-          <div class="volume-control">
-            <span>🔊</span>
-            <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.7">
-          </div>
+      <div class="player-controls">
+        <button class="btn-play" id="playBtn" aria-label="Play Track">▶</button>
+        <div class="volume-control">
+          <span>🔊</span>
+          <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.7">
         </div>
       </div>
     </div>
   </section>
 
-  <!-- EXACT PRICING SECTION CLONE (FROM SCREENSHOT) -->
+  <!-- PRICING SECTION -->
   <section class="pricing-section" id="pricing">
     <div class="pricing-header">
       <h2 class="serif-title">Pricing that scales with your client list</h2>
@@ -99,7 +638,7 @@
         <button class="btn-outline-full" onclick="openPaymentModal('Starter')">Start free</button>
       </div>
 
-      <!-- Featured / Highlighted Card (Independent) -->
+      <!-- Featured Card (Independent) -->
       <div class="price-card dark-card">
         <span class="badge-text">Most freelancers pick this</span>
         <h3 class="card-title serif-title">Independent</h3>
@@ -145,7 +684,6 @@
       <p class="modal-sub">Choose your preferred gateway to proceed.</p>
 
       <div class="payment-options">
-        <!-- Payment Mode 1: Credit / Debit Card -->
         <div class="payment-option" onclick="processPayment('Credit / Debit Card')">
           <div class="option-details">
             <div class="option-icon">💳</div>
@@ -157,7 +695,6 @@
           <span>→</span>
         </div>
 
-        <!-- Payment Mode 2: Express Wallet -->
         <div class="payment-option" onclick="processPayment('Express Wallet')">
           <div class="option-details">
             <div class="option-icon">📱</div>
@@ -169,7 +706,6 @@
           <span>→</span>
         </div>
 
-        <!-- Payment Mode 3: Bank / Crypto Wire -->
         <div class="payment-option" onclick="processPayment('Direct Wire / Crypto')">
           <div class="option-details">
             <div class="option-icon">🏦</div>
@@ -184,7 +720,6 @@
     </div>
   </div>
 
-  <!-- TOAST NOTIFICATION -->
   <div class="toast-notification" id="toast"></div>
 
   <!-- JAVASCRIPT LOGIC -->
@@ -228,7 +763,7 @@
       }, 3500);
     }
 
-    // Audio Synthesizer & Visualizer
+    /* Web Audio Synthesizer */
     let audioCtx;
     let oscillator;
     let gainNode;
@@ -304,7 +839,7 @@
       const time = Date.now() * 0.003;
 
       for (let i = 0; i < 100; i++) {
-        const y = (Math.sin(time + i * 0.1) * 15) + (canvas.height / 2);
+        const y = (Math.sin(time + i * 0.1) * 12) + (canvas.height / 2);
         if (i === 0) canvasCtx.moveTo(x, y);
         else canvasCtx.lineTo(x, y);
         x += sliceWidth;
