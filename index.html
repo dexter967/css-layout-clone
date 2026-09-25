@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aura — Minimal Aesthetic Soundscapes</title>
+  <title>Tally — Minimal Music & Soundscapes</title>
+  <!-- Google Fonts for Editorial Serif Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -15,21 +16,26 @@
   <header class="navbar">
     <div class="nav-container">
       <a href="#" class="brand-logo">
-        <span class="logo-badge">✦</span> Aura Sound
+        Tally<span class="logo-dot">.</span>
       </a>
       <ul class="nav-links">
-        <li><a href="#discover">Discover</a></li>
-        <li><a href="#library">Library</a></li>
-        <li><a href="#about">About</a></li>
+        <li><a href="#music">Product</a></li>
+        <li><a href="#numbers">Numbers</a></li>
+        <li><a href="#stories">Stories</a></li>
+        <li><a href="#pricing">Pricing</a></li>
       </ul>
+      <div class="nav-actions">
+        <a href="#login" class="nav-link-login">Log in</a>
+        <button class="btn-dark" onclick="openPaymentModal()">Start free</button>
+      </div>
     </div>
   </header>
 
   <!-- TOP SWITCH BANNER (TRIGGERS PAYMENT MODAL) -->
   <div class="switch-banner">
     <div class="switch-info">
-      <h4>Aura Premium Sound Pass</h4>
-      <p>Touch switch to unlock spatial audio & lossless soundscapes</p>
+      <h4>Membership Pass Switch</h4>
+      <p>Touch switch to open 3-mode payment checkout</p>
     </div>
     <div class="toggle-switch-container">
       <span class="switch-label">Pass Inactive</span>
@@ -40,55 +46,91 @@
     </div>
   </div>
 
-  <!-- HERO & INTERACTIVE AUDIO PLAYER -->
-  <main class="hero-container">
-    <div class="hero-text">
-      <h1>Pure light, minimal ambient soundscapes.</h1>
-      <p>Designed for deep concentration, peaceful reflection, and effortless daily focus.</p>
-    </div>
+  <!-- HERO & MUSIC SYNTH PLAYER -->
+  <section class="hero-section" id="music">
+    <div class="hero-content">
+      <h1 class="serif-title">Soundscapes that scale with your workflow</h1>
+      <p class="hero-subtext">Start free. Upgrade the week you need custom ambient audio and lossless spatial engine output.</p>
+      
+      <!-- Interactive Web Audio Player -->
+      <div class="player-card">
+        <div class="track-meta">
+          <div class="album-art">🎧</div>
+          <div class="track-details">
+            <h3 id="trackTitle">Focus & Flow Alpha Waves</h3>
+            <p id="trackArtist">Procedural Minimal Engine</p>
+          </div>
+        </div>
 
-    <!-- Live Audio Synthesizer Player -->
-    <div class="player-card">
-      <div class="track-meta">
-        <div class="album-art">🎧</div>
-        <div class="track-details">
-          <h3 id="trackTitle">Ethereal Soft Waves</h3>
-          <p id="trackArtist">Procedural Light Engine</p>
+        <canvas id="visualizer"></canvas>
+
+        <div class="player-controls">
+          <button class="btn-play" id="playBtn" aria-label="Play Track">▶</button>
+          <div class="volume-control">
+            <span>🔊</span>
+            <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.7">
+          </div>
         </div>
       </div>
-
-      <canvas id="visualizer"></canvas>
-
-      <div class="player-controls">
-        <button class="btn-play" id="playBtn" aria-label="Play Track">▶</button>
-        <div class="volume-control">
-          <span>🔊</span>
-          <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.7">
-        </div>
-      </div>
     </div>
-  </main>
+  </section>
 
-  <!-- MUSIC DISCOVERY GRID -->
-  <section class="discovery-section" id="discover">
-    <h2 class="section-title">Curated Sound Collections</h2>
-    <div class="cards-grid">
-      <div class="sound-card" onclick="loadTrack('Pastel Horizon')">
-        <div class="card-cover" style="background: linear-gradient(135deg, #fee2e2, #fef3c7);">🌸</div>
-        <h4 class="card-title">Pastel Horizon</h4>
-        <p class="card-subtitle">Soft ambient synth pads</p>
+  <!-- EXACT PRICING SECTION CLONE (FROM SCREENSHOT) -->
+  <section class="pricing-section" id="pricing">
+    <div class="pricing-header">
+      <h2 class="serif-title">Pricing that scales with your client list</h2>
+      <p class="pricing-subtext">Start free. Upgrade the week you sign a second retainer.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <!-- Starter Card -->
+      <div class="price-card">
+        <h3 class="card-title serif-title">Starter</h3>
+        <div class="price-tag">
+          <span class="price-val">$0</span>
+          <span class="price-period">/month</span>
+        </div>
+        <p class="card-desc">For testing the waters with one or two clients.</p>
+        <ul class="feature-list">
+          <li>— Unlimited time tracking</li>
+          <li>— Up to 2 active clients</li>
+          <li>— Basic invoicing</li>
+        </ul>
+        <button class="btn-outline-full" onclick="openPaymentModal('Starter')">Start free</button>
       </div>
 
-      <div class="sound-card" onclick="loadTrack('Morning Glass')">
-        <div class="card-cover" style="background: linear-gradient(135deg, #e0e7ff, #f3e8ff);">✨</div>
-        <h4 class="card-title">Morning Glass</h4>
-        <p class="card-subtitle">Minimalist acoustic textures</p>
+      <!-- Featured / Highlighted Card (Independent) -->
+      <div class="price-card dark-card">
+        <span class="badge-text">Most freelancers pick this</span>
+        <h3 class="card-title serif-title">Independent</h3>
+        <div class="price-tag">
+          <span class="price-val">$14</span>
+          <span class="price-period">/month</span>
+        </div>
+        <p class="card-desc">Everything you need to run a solo practice.</p>
+        <ul class="feature-list">
+          <li>— Unlimited clients & projects</li>
+          <li>— Branded, auto-generated invoices</li>
+          <li>— Direct card & bank payments</li>
+          <li>— Weekly summary emails</li>
+        </ul>
+        <button class="btn-primary-light" onclick="openPaymentModal('Independent')">Start 14-day trial</button>
       </div>
 
-      <div class="sound-card" onclick="loadTrack('Luminous Rain')">
-        <div class="card-cover" style="background: linear-gradient(135deg, #d1fae5, #e0f2fe);">💧</div>
-        <h4 class="card-title">Luminous Rain</h4>
-        <p class="card-subtitle">Gentle organic rainfall</p>
+      <!-- Studio Card -->
+      <div class="price-card">
+        <h3 class="card-title serif-title">Studio</h3>
+        <div class="price-tag">
+          <span class="price-val">$34</span>
+          <span class="price-period">/month</span>
+        </div>
+        <p class="card-desc">For small teams billing under one roof.</p>
+        <ul class="feature-list">
+          <li>— Everything in Independent</li>
+          <li>— Up to 5 teammates</li>
+          <li>— Shared client ledgers</li>
+        </ul>
+        <button class="btn-outline-full" onclick="openPaymentModal('Studio')">Talk to us</button>
       </div>
     </div>
   </section>
@@ -97,12 +139,10 @@
   <div class="modal-overlay" id="paymentModal">
     <div class="modal-card">
       <div class="modal-header">
-        <h3>Select Payment Method</h3>
+        <h3 class="serif-title">Select Payment Mode</h3>
         <button class="btn-close" id="closeModalBtn">&times;</button>
       </div>
-      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">
-        Choose your preferred gateway to activate your Premium Pass.
-      </p>
+      <p class="modal-sub">Choose your preferred gateway to proceed.</p>
 
       <div class="payment-options">
         <!-- Payment Mode 1: Credit / Debit Card -->
@@ -117,7 +157,7 @@
           <span>→</span>
         </div>
 
-        <!-- Payment Mode 2: Apple Pay / Google Pay -->
+        <!-- Payment Mode 2: Express Wallet -->
         <div class="payment-option" onclick="processPayment('Express Wallet')">
           <div class="option-details">
             <div class="option-icon">📱</div>
@@ -129,13 +169,13 @@
           <span>→</span>
         </div>
 
-        <!-- Payment Mode 3: Crypto / Web3 Wallet -->
-        <div class="payment-option" onclick="processPayment('Crypto Wallet')">
+        <!-- Payment Mode 3: Bank / Crypto Wire -->
+        <div class="payment-option" onclick="processPayment('Direct Wire / Crypto')">
           <div class="option-details">
-            <div class="option-icon">🪙</div>
+            <div class="option-icon">🏦</div>
             <div class="option-text">
-              <h5>Crypto Currency</h5>
-              <p>USDC, Ethereum, Solana</p>
+              <h5>Direct Bank Wire / Crypto</h5>
+              <p>Ach Transfer, USDC, Solana</p>
             </div>
           </div>
           <span>→</span>
@@ -149,7 +189,6 @@
 
   <!-- JAVASCRIPT LOGIC -->
   <script>
-    // Payment Modal Controller
     const paymentSwitch = document.getElementById('paymentSwitch');
     const paymentModal = document.getElementById('paymentModal');
     const closeModalBtn = document.getElementById('closeModalBtn');
@@ -157,7 +196,7 @@
 
     paymentSwitch.addEventListener('change', () => {
       if (paymentSwitch.checked) {
-        paymentModal.classList.add('active');
+        openPaymentModal();
       } else {
         showToast("Pass deactivated.");
       }
@@ -168,9 +207,17 @@
       paymentSwitch.checked = false;
     });
 
+    function openPaymentModal(planName = '') {
+      paymentModal.classList.add('active');
+      if (planName) {
+        showToast(`Selected Plan: ${planName}`);
+      }
+    }
+
     function processPayment(methodName) {
       paymentModal.classList.remove('active');
-      showToast(`Activated via ${methodName}! Enjoy Premium.`);
+      paymentSwitch.checked = true;
+      showToast(`Activated via ${methodName}! Upgrade successful.`);
     }
 
     function showToast(message) {
@@ -249,7 +296,7 @@
       canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
       
       canvasCtx.lineWidth = 2;
-      canvasCtx.strokeStyle = '#8b5cf6';
+      canvasCtx.strokeStyle = '#18181b';
       canvasCtx.beginPath();
 
       const sliceWidth = canvas.width / 100;
@@ -264,15 +311,6 @@
       }
 
       canvasCtx.stroke();
-    }
-
-    function loadTrack(name) {
-      document.getElementById('trackTitle').textContent = name;
-      showToast(`Loaded soundscape: ${name}`);
-      if (isPlaying) {
-        stopSynth();
-        startSynth();
-      }
     }
   </script>
 </body>
