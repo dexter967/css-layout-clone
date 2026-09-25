@@ -7,498 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    /* ==========================================================================
-       1. CSS VARIABLES & LIGHT MINIMAL THEME
-       ========================================================================== */
-    :root {
-      --bg-base: #f7f9fa;
-      --bg-card: #ffffff;
-      --bg-glass: rgba(255, 255, 255, 0.75);
-      --accent-rose: #f43f5e;
-      --accent-soft-rose: #ffe4e6;
-      --accent-lavender: #8b5cf6;
-      --accent-soft-lavender: #f3e8ff;
-      --accent-mint: #10b981;
-      --text-main: #1e293b;
-      --text-muted: #64748b;
-      --border-subtle: #e2e8f0;
-      --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.03);
-      --shadow-lg: 0 20px 40px rgba(100, 116, 139, 0.08);
-      --font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-      --radius-lg: 24px;
-      --radius-md: 16px;
-      --radius-sm: 10px;
-    }
-
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: var(--font-family);
-      background-color: var(--bg-base);
-      color: var(--text-main);
-      line-height: 1.6;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      overflow-x: hidden;
-      background-image: 
-        radial-gradient(circle at 10% 20%, rgba(244, 63, 94, 0.04) 0%, transparent 40%),
-        radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.05) 0%, transparent 40%);
-    }
-
-    /* ==========================================================================
-       2. NAVBAR & HEADER
-       ========================================================================== */
-    .navbar {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: var(--bg-glass);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border-subtle);
-      padding: 1.25rem 2rem;
-    }
-
-    .nav-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .brand-logo {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-size: 1.25rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: var(--text-main);
-      text-decoration: none;
-    }
-
-    .logo-badge {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent-rose), var(--accent-lavender));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 0.9rem;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      color: var(--text-muted);
-      font-weight: 500;
-      font-size: 0.95rem;
-      transition: color 0.2s ease;
-    }
-
-    .nav-links a:hover {
-      color: var(--text-main);
-    }
-
-    /* ==========================================================================
-       3. TOP ACTION SWITCH (PRO MEMBERSHIP TRIGGER)
-       ========================================================================== */
-    .switch-banner {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-lg);
-      padding: 1.25rem 2rem;
-      max-width: 1200px;
-      margin: 1.5rem auto 0;
-      width: calc(100% - 3rem);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .switch-info h4 {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text-main);
-    }
-
-    .switch-info p {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    .toggle-switch-container {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .switch-label {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--text-muted);
-    }
-
-    .switch {
-      position: relative;
-      display: inline-block;
-      width: 52px;
-      height: 28px;
-    }
-
-    .switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-
-    .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background-color: var(--border-subtle);
-      transition: 0.3s ease;
-      border-radius: 34px;
-    }
-
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 20px;
-      width: 20px;
-      left: 4px;
-      bottom: 4px;
-      background-color: white;
-      transition: 0.3s ease;
-      border-radius: 50%;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-
-    input:checked + .slider {
-      background-color: var(--accent-lavender);
-    }
-
-    input:checked + .slider:before {
-      transform: translateX(24px);
-    }
-
-    /* ==========================================================================
-       4. HERO & AUDIO PLAYER SECTION
-       ========================================================================== */
-    .hero-container {
-      max-width: 1200px;
-      margin: 2rem auto;
-      padding: 0 1.5rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2.5rem;
-      align-items: center;
-    }
-
-    .hero-text h1 {
-      font-size: 2.75rem;
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      line-height: 1.2;
-      margin-bottom: 1rem;
-    }
-
-    .hero-text p {
-      font-size: 1.05rem;
-      color: var(--text-muted);
-      margin-bottom: 2rem;
-    }
-
-    /* Audio Player Card */
-    .player-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-lg);
-      padding: 2rem;
-      box-shadow: var(--shadow-lg);
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .track-meta {
-      display: flex;
-      align-items: center;
-      gap: 1.25rem;
-    }
-
-    .album-art {
-      width: 72px;
-      height: 72px;
-      border-radius: var(--radius-md);
-      background: linear-gradient(135deg, #fce7f3, #e0e7ff);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.75rem;
-    }
-
-    .track-details h3 {
-      font-size: 1.15rem;
-      font-weight: 600;
-    }
-
-    .track-details p {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-    }
-
-    canvas#visualizer {
-      width: 100%;
-      height: 60px;
-      border-radius: var(--radius-sm);
-      background: rgba(241, 245, 249, 0.6);
-    }
-
-    .player-controls {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .btn-play {
-      background: var(--text-main);
-      color: white;
-      border: none;
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      font-size: 1.2rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.2s ease, background-color 0.2s ease;
-    }
-
-    .btn-play:hover {
-      transform: scale(1.05);
-      background-color: var(--accent-lavender);
-    }
-
-    .volume-control {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    /* ==========================================================================
-       5. MUSIC DISCOVERY GRID
-       ========================================================================== */
-    .discovery-section {
-      max-width: 1200px;
-      margin: 2rem auto 4rem;
-      padding: 0 1.5rem;
-    }
-
-    .section-title {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 1.5rem;
-      letter-spacing: -0.02em;
-    }
-
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .sound-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 1.25rem;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-      cursor: pointer;
-    }
-
-    .sound-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-lg);
-    }
-
-    .card-cover {
-      height: 160px;
-      border-radius: var(--radius-sm);
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.5rem;
-    }
-
-    .card-title {
-      font-size: 1rem;
-      font-weight: 600;
-    }
-
-    .card-subtitle {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    /* ==========================================================================
-       6. PAYMENT MODAL (3 MODES)
-       ========================================================================== */
-    .modal-overlay {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(15, 23, 42, 0.4);
-      backdrop-filter: blur(8px);
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-
-    .modal-overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .modal-card {
-      background: var(--bg-card);
-      border-radius: var(--radius-lg);
-      padding: 2.5rem;
-      max-width: 480px;
-      width: 90%;
-      box-shadow: var(--shadow-lg);
-      border: 1px solid var(--border-subtle);
-      transform: translateY(20px);
-      transition: transform 0.3s ease;
-    }
-
-    .modal-overlay.active .modal-card {
-      transform: translateY(0);
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.5rem;
-    }
-
-    .modal-header h3 {
-      font-size: 1.25rem;
-      font-weight: 700;
-    }
-
-    .btn-close {
-      background: none;
-      border: none;
-      font-size: 1.25rem;
-      color: var(--text-muted);
-      cursor: pointer;
-    }
-
-    /* 3 Payment Options */
-    .payment-options {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .payment-option {
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 1rem 1.25rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .payment-option:hover {
-      border-color: var(--accent-lavender);
-      background-color: var(--accent-soft-lavender);
-    }
-
-    .option-details {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .option-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: var(--bg-base);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-    }
-
-    .option-text h5 {
-      font-size: 0.95rem;
-      font-weight: 600;
-    }
-
-    .option-text p {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    /* Status Notification */
-    .toast-notification {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      background: var(--text-main);
-      color: white;
-      padding: 0.85rem 1.5rem;
-      border-radius: var(--radius-sm);
-      font-size: 0.9rem;
-      box-shadow: var(--shadow-lg);
-      transform: translateY(100px);
-      opacity: 0;
-      transition: all 0.3s ease;
-      z-index: 150;
-    }
-
-    .toast-notification.show {
-      transform: translateY(0);
-      opacity: 1;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      .hero-container {
-        grid-template-columns: 1fr;
-      }
-      .nav-links {
-        display: none;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -564,19 +73,19 @@
   <section class="discovery-section" id="discover">
     <h2 class="section-title">Curated Sound Collections</h2>
     <div class="cards-grid">
-      <div class="sound-card" onclick="loadTrack('Pastel Horizon', '#fee2e2')">
+      <div class="sound-card" onclick="loadTrack('Pastel Horizon')">
         <div class="card-cover" style="background: linear-gradient(135deg, #fee2e2, #fef3c7);">🌸</div>
         <h4 class="card-title">Pastel Horizon</h4>
         <p class="card-subtitle">Soft ambient synth pads</p>
       </div>
 
-      <div class="sound-card" onclick="loadTrack('Morning Glass', '#e0e7ff')">
+      <div class="sound-card" onclick="loadTrack('Morning Glass')">
         <div class="card-cover" style="background: linear-gradient(135deg, #e0e7ff, #f3e8ff);">✨</div>
         <h4 class="card-title">Morning Glass</h4>
         <p class="card-subtitle">Minimalist acoustic textures</p>
       </div>
 
-      <div class="sound-card" onclick="loadTrack('Luminous Rain', '#d1fae5')">
+      <div class="sound-card" onclick="loadTrack('Luminous Rain')">
         <div class="card-cover" style="background: linear-gradient(135deg, #d1fae5, #e0f2fe);">💧</div>
         <h4 class="card-title">Luminous Rain</h4>
         <p class="card-subtitle">Gentle organic rainfall</p>
@@ -640,9 +149,7 @@
 
   <!-- JAVASCRIPT LOGIC -->
   <script>
-    // ==========================================
-    // 1. PAYMENT MODAL CONTROLLER (TOGGLE SWITCH)
-    // ==========================================
+    // Payment Modal Controller
     const paymentSwitch = document.getElementById('paymentSwitch');
     const paymentModal = document.getElementById('paymentModal');
     const closeModalBtn = document.getElementById('closeModalBtn');
@@ -674,9 +181,7 @@
       }, 3500);
     }
 
-    // ==========================================
-    // 2. PROCEDURAL AUDIO SYNTHESIZER & VISUALIZER
-    // ==========================================
+    // Audio Synthesizer & Visualizer
     let audioCtx;
     let oscillator;
     let gainNode;
@@ -699,8 +204,7 @@
       gainNode = audioCtx.createGain();
 
       oscillator.type = 'sine';
-      oscillator.frequency.setValueAtTime(220, audioCtx.currentTime); // Soft A3 note
-      
+      oscillator.frequency.setValueAtTime(220, audioCtx.currentTime);
       gainNode.gain.setValueAtTime(volumeSlider.value * 0.2, audioCtx.currentTime);
       
       oscillator.connect(gainNode);
@@ -735,15 +239,13 @@
       }
     });
 
-    // Minimal Waveform Visualizer
-    let animFrame;
     function drawVisualizer() {
       if (!isPlaying) {
         canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
         return;
       }
 
-      animFrame = requestAnimationFrame(drawVisualizer);
+      requestAnimationFrame(drawVisualizer);
       canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
       
       canvasCtx.lineWidth = 2;
