@@ -9,6 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- CSS Stylesheet -->
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -101,7 +103,7 @@
     </div>
   </section>
 
-  <!-- ACOUSTICS ARCHITECTURE (NEW CONTENT SECTION) -->
+  <!-- ACOUSTICS ARCHITECTURE -->
   <section class="acoustics-section" id="acoustics">
     <div class="section-intro">
       <h2 class="serif-title">Crafted for the discerning classical listener</h2>
@@ -236,19 +238,16 @@
     </div>
   </div>
 
-  <!-- TOAST NOTIFICATION -->
   <div class="toast" id="toast"></div>
 
   <!-- JAVASCRIPT LOGIC -->
   <script>
-    // Smooth Scroll to Tiers
     function scrollToTiers() {
       document.getElementById('tiers').scrollIntoView({ behavior: 'smooth' });
     }
 
     document.getElementById('toggleScrollBtn').addEventListener('click', scrollToTiers);
 
-    // Interactive Level Slider
     const spatialLevel = document.getElementById('spatialLevel');
     const levelLabel = document.getElementById('levelLabel');
     const depthVal = document.getElementById('depthVal');
@@ -277,7 +276,6 @@
         else tick.classList.remove('active');
       });
 
-      // Highlight corresponding pricing tier card briefly
       document.querySelectorAll('.tier-card').forEach(card => card.classList.remove('card-pulse'));
       const activeCard = document.getElementById(levelData[lvl].highlight);
       if (activeCard) {
@@ -286,7 +284,6 @@
       }
     }
 
-    // Modal Logic
     const tierModal = document.getElementById('tierModal');
     const closeModalBtn = document.getElementById('closeModalBtn');
     const modalPlanName = document.getElementById('modalPlanName');
@@ -312,7 +309,6 @@
       setTimeout(() => toast.classList.remove('show'), 3500);
     }
 
-    // Web Audio Synthesizer Engine
     let audioCtx;
     let oscillator;
     let gainNode;
@@ -334,9 +330,8 @@
       oscillator = audioCtx.createOscillator();
       gainNode = audioCtx.createGain();
 
-      // Warm triangle wave for cello-like overtone
       oscillator.type = 'triangle';
-      oscillator.frequency.setValueAtTime(261.63, audioCtx.currentTime); // C4 note
+      oscillator.frequency.setValueAtTime(261.63, audioCtx.currentTime);
       
       gainNode.gain.setValueAtTime(volumeSlider.value * 0.15, audioCtx.currentTime);
 
@@ -370,7 +365,6 @@
       }
     });
 
-    // Gentle classical wave rendering
     function drawVisualizer() {
       if (!isPlaying) {
         canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
@@ -381,7 +375,7 @@
       canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
 
       canvasCtx.lineWidth = 2;
-      canvasCtx.strokeStyle = '#8C6D58'; // Warm terracotta stroke
+      canvasCtx.strokeStyle = '#8C6D58';
       canvasCtx.beginPath();
 
       const sliceWidth = canvas.width / 100;
