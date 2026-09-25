@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SaaSify — Modern Platform Clone</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ==================== HEADER / NAVBAR ==================== -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#" class="brand-logo">
+        <span class="logo-icon">⚡</span> SaaSify
+      </a>
+      
+      <nav class="nav-links">
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#solutions" class="nav-link">Solutions</a>
+        <a href="#pricing" class="nav-link">Pricing</a>
+        <a href="#docs" class="nav-link">Docs</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="#login" class="btn btn-secondary">Log In</a>
+        <a href="#signup" class="btn btn-primary">Get Started</a>
+      </div>
+
+      <!-- Mobile Menu Toggle -->
+      <button class="mobile-toggle" aria-label="Toggle Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN PAGE GRID ==================== -->
+  <main class="page-grid">
+
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+      <div class="hero-content">
+        <!-- Required μid Badge Claim -->
+        <div class="uid-badge">
+          <span class="badge-dot"></span>
+          <h3>Website Layout Clone done by &lt;your_μid&gt;</h3>
+        </div>
+
+        <h1 class="hero-title">Automate your entire deployment workflow in minutes.</h1>
+        <p class="hero-subtitle">
+          Connect your repositories, configure modern serverless infrastructure, and launch high-performance web applications seamlessly.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="#" class="btn btn-primary btn-large">Start Free Trial →</a>
+          <a href="#" class="btn btn-outline btn-large">View Documentation</a>
+        </div>
+
+        <div class="hero-metrics">
+          <div class="metric-item">
+            <span class="metric-val">99.99%</span>
+            <span class="metric-label">Uptime SLA</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-val">&lt;50ms</span>
+            <span class="metric-label">Global Latency</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-val">10M+</span>
+            <span class="metric-label">Deployments</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-preview">
+        <div class="terminal-card">
+          <div class="terminal-header">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+            <span class="terminal-title">bash — saasify deploy</span>
+          </div>
+          <div class="terminal-body">
+            <p class="code-line"><span class="prompt">$</span> saasify init my-app</p>
+            <p class="code-line success">✔ Detected Next.js project architecture</p>
+            <p class="code-line"><span class="prompt">$</span> saasify deploy --prod</p>
+            <p class="code-line info">ℹ Building production bundle...</p>
+            <p class="code-line info">ℹ Deploying to 32 edge locations...</p>
+            <p class="code-line success">🚀 Live at: https://my-app.saasify.dev</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES SECTION (GRID) -->
+    <section id="features" class="features-section">
+      <div class="section-header">
+        <span class="section-tag">PLATFORM CAPABILITIES</span>
+        <h2>Built for modern engineering teams</h2>
+        <p>Everything you need to ship software faster and safer.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="card-icon">⚡</div>
+          <h3>Instant Edge Builds</h3>
+          <p>Global CDN edge caching guarantees sub-second page loads anywhere in the world.</p>
+          <a href="#" class="card-link">Learn about Edge →</a>
+        </div>
+
+        <div class="feature-card">
+          <div class="card-icon">🛡️</div>
+          <h3>Automated Security</h3>
+          <p>Zero-configuration SSL, DDoS mitigation, and enterprise role-based access control.</p>
+          <a href="#" class="card-link">Explore Security →</a>
+        </div>
+
+        <div class="feature-card">
+          <div class="card-icon">🔄</div>
+          <h3>Continuous CI/CD</h3>
+          <p>Automatic git push previews for every branch, pull request, and commit.</p>
+          <a href="#" class="card-link">View Workflows →</a>
+        </div>
+
+        <div class="feature-card">
+          <div class="card-icon">📊</div>
+          <h3>Real-time Analytics</h3>
+          <p>Deep insight into Core Web Vitals, API request spikes, and server logs.</p>
+          <a href="#" class="card-link">See Analytics →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING SECTION (GRID + FLEX) -->
+    <section id="pricing" class="pricing-section">
+      <div class="section-header">
+        <span class="section-tag">TRANSPARENT PRICING</span>
+        <h2>Simple pricing for team scaling</h2>
+      </div>
+
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="plan-header">
+            <h3>Starter</h3>
+            <p class="plan-desc">Perfect for side projects and individual developers.</p>
+            <div class="plan-price"><span class="currency">$</span>0 <span class="period">/ mo</span></div>
+          </div>
+          <ul class="plan-features">
+            <li>✓ Up to 3 projects</li>
+            <li>✓ 100 GB Bandwidth</li>
+            <li>✓ Community Support</li>
+          </ul>
+          <a href="#" class="btn btn-outline btn-block">Get Started</a>
+        </div>
+
+        <div class="pricing-card featured">
+          <div class="popular-badge">MOST POPULAR</div>
+          <div class="plan-header">
+            <h3>Pro Team</h3>
+            <p class="plan-desc">For growing startups demanding performance & uptime.</p>
+            <div class="plan-price"><span class="currency">$</span>49 <span class="period">/ mo</span></div>
+          </div>
+          <ul class="plan-features">
+            <li>✓ Unlimited projects</li>
+            <li>✓ 1 TB Bandwidth</li>
+            <li>✓ Dedicated Edge Nodes</li>
+            <li>✓ 24/7 Priority Support</li>
+          </ul>
+          <a href="#" class="btn btn-primary btn-block">Start 14-Day Trial</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <a href="#" class="brand-logo"><span class="logo-icon">⚡</span> SaaSify</a>
+        <p>Empowering developer productivity globally.</p>
+      </div>
+
+      <div class="footer-links-grid">
+        <div class="footer-col">
+          <h4>Product</h4>
+          <a href="#">Features</a>
+          <a href="#">Integrations</a>
+          <a href="#">Enterprise</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="#">Documentation</a>
+          <a href="#">API Reference</a>
+          <a href="#">Community</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="#">About Us</a>
+          <a href="#">Careers</a>
+          <a href="#">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 SaaSify Inc. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
