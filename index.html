@@ -3,702 +3,218 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tally — Minimal Music & Soundscapes</title>
+  <title>Sonata — Spatial Classical Engine</title>
   
-  <!-- Fonts -->
+  <!-- Google Fonts: Editorial Serif & Clean Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  
-  <style>
-    /* ==========================================================================
-       1. TALLY MINIMAL AESTHETIC VARIABLES & RESET
-       ========================================================================== */
-    :root {
-      --bg-warm: #fbf9f5;
-      --bg-card-light: #f7f5f0;
-      --bg-card-dark: #18181b;
-      --text-dark: #18181b;
-      --text-muted: #6b7280;
-      --text-dark-muted: #9ca3af;
-      --accent-gold: #d97706;
-      --border-card: #e5e1d8;
-      --font-serif: 'Playfair Display', Georgia, serif;
-      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-      --radius-card: 12px;
-      --radius-btn: 6px;
-    }
-
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: var(--font-sans);
-      background-color: var(--bg-warm);
-      color: var(--text-dark);
-      line-height: 1.6;
-      min-height: 100vh;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    .serif-title {
-      font-family: var(--font-serif);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-
-    /* ==========================================================================
-       2. NAVBAR
-       ========================================================================== */
-    .navbar {
-      background-color: var(--bg-warm);
-      padding: 1.5rem 3rem;
-      position: sticky;
-      top: 0;
-      z-index: 40;
-      border-bottom: 1px solid rgba(0,0,0,0.04);
-    }
-
-    .nav-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .brand-logo {
-      font-family: var(--font-serif);
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--text-dark);
-      text-decoration: none;
-    }
-
-    .logo-dot {
-      color: var(--accent-gold);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2.5rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      color: var(--text-dark);
-      font-weight: 500;
-      font-size: 1rem;
-      transition: opacity 0.2s;
-    }
-
-    .nav-links a:hover {
-      opacity: 0.7;
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-    }
-
-    .nav-link-login {
-      text-decoration: none;
-      color: var(--text-dark);
-      font-weight: 500;
-    }
-
-    .btn-dark {
-      background-color: var(--text-dark);
-      color: #fff;
-      border: none;
-      padding: 0.7rem 1.4rem;
-      font-size: 0.95rem;
-      font-weight: 600;
-      border-radius: var(--radius-btn);
-      cursor: pointer;
-      transition: background-color 0.2s;
-    }
-
-    .btn-dark:hover {
-      background-color: #27272a;
-    }
-
-    /* ==========================================================================
-       3. SWITCH BANNER
-       ========================================================================== */
-    .switch-banner {
-      max-width: 1200px;
-      margin: 1.5rem auto 0;
-      padding: 1.25rem 2rem;
-      background-color: #f1ede4;
-      border-radius: var(--radius-card);
-      border: 1px solid var(--border-card);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: calc(100% - 3rem);
-    }
-
-    .switch-info h4 {
-      font-size: 1rem;
-      font-weight: 600;
-    }
-
-    .switch-info p {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    .toggle-switch-container {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .switch-label {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--text-muted);
-    }
-
-    .switch {
-      position: relative;
-      display: inline-block;
-      width: 50px;
-      height: 26px;
-    }
-
-    .switch input { opacity: 0; width: 0; height: 0; }
-
-    .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background-color: #d1d5db;
-      transition: 0.3s;
-      border-radius: 34px;
-    }
-
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 18px; width: 18px;
-      left: 4px; bottom: 4px;
-      background-color: white;
-      transition: 0.3s;
-      border-radius: 50%;
-    }
-
-    input:checked + .slider { background-color: var(--text-dark); }
-    input:checked + .slider:before { transform: translateX(24px); }
-
-    /* ==========================================================================
-       4. HERO & AUDIO PLAYER
-       ========================================================================== */
-    .hero-section {
-      max-width: 1200px;
-      margin: 3rem auto;
-      padding: 0 1.5rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2.5rem;
-      align-items: center;
-    }
-
-    .hero-section h1 {
-      font-size: 3.25rem;
-      line-height: 1.15;
-      margin-bottom: 1.25rem;
-    }
-
-    .hero-subtext {
-      font-size: 1.15rem;
-      color: var(--text-muted);
-    }
-
-    .player-card {
-      background: #ffffff;
-      border: 1px solid var(--border-card);
-      border-radius: var(--radius-card);
-      padding: 1.75rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
-    }
-
-    .track-meta {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .album-art {
-      width: 56px;
-      height: 56px;
-      background: var(--bg-card-light);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-    }
-
-    canvas#visualizer {
-      width: 100%;
-      height: 50px;
-      background: #fdfdfd;
-      border-radius: 6px;
-      border: 1px solid #f0f0f0;
-    }
-
-    .player-controls {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .btn-play {
-      background: var(--text-dark);
-      color: white;
-      border: none;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 1.1rem;
-    }
-
-    .volume-control {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    /* ==========================================================================
-       5. TALLY PRICING SECTION
-       ========================================================================== */
-    .pricing-section {
-      max-width: 1200px;
-      margin: 5rem auto;
-      padding: 0 1.5rem;
-    }
-
-    .pricing-header {
-      margin-bottom: 3.5rem;
-    }
-
-    .pricing-header h2 {
-      font-size: 3.25rem;
-      line-height: 1.15;
-      margin-bottom: 1rem;
-    }
-
-    .pricing-subtext {
-      font-size: 1.25rem;
-      color: var(--text-muted);
-    }
-
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-      align-items: stretch;
-    }
-
-    .price-card {
-      background-color: var(--bg-card-light);
-      border: 1px solid var(--border-card);
-      border-radius: var(--radius-card);
-      padding: 2.5rem 2rem;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .card-title {
-      font-size: 1.75rem;
-      margin-bottom: 1rem;
-    }
-
-    .price-tag {
-      display: flex;
-      align-items: baseline;
-      gap: 0.25rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .price-val {
-      font-size: 3.25rem;
-      font-weight: 500;
-      line-height: 1;
-    }
-
-    .price-period {
-      font-size: 1.1rem;
-      color: var(--text-muted);
-    }
-
-    .card-desc {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      margin-bottom: 2rem;
-      min-height: 45px;
-    }
-
-    .feature-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin-bottom: 2.5rem;
-      flex-grow: 1;
-    }
-
-    .feature-list li {
-      font-size: 0.95rem;
-      color: #374151;
-    }
-
-    .btn-outline-full {
-      width: 100%;
-      padding: 0.85rem;
-      background: transparent;
-      border: 1px solid var(--text-dark);
-      color: var(--text-dark);
-      font-weight: 600;
-      font-size: 1rem;
-      border-radius: var(--radius-btn);
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .btn-outline-full:hover {
-      background: rgba(0,0,0,0.04);
-    }
-
-    /* Dark Highlighted Card (Independent) */
-    .price-card.dark-card {
-      background-color: var(--bg-card-dark);
-      color: #ffffff;
-      border-color: var(--bg-card-dark);
-    }
-
-    .price-card.dark-card .badge-text {
-      font-size: 0.85rem;
-      color: var(--accent-gold);
-      font-weight: 600;
-      margin-bottom: 0.75rem;
-      display: block;
-    }
-
-    .price-card.dark-card .price-period,
-    .price-card.dark-card .card-desc,
-    .price-card.dark-card .feature-list li {
-      color: var(--text-dark-muted);
-    }
-
-    .btn-primary-light {
-      width: 100%;
-      padding: 0.85rem;
-      background-color: #ffffff;
-      border: none;
-      color: var(--text-dark);
-      font-weight: 600;
-      font-size: 1rem;
-      border-radius: var(--radius-btn);
-      cursor: pointer;
-      transition: opacity 0.2s;
-    }
-
-    .btn-primary-light:hover {
-      opacity: 0.9;
-    }
-
-    /* ==========================================================================
-       6. PAYMENT MODAL
-       ========================================================================== */
-    .modal-overlay {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.4);
-      backdrop-filter: blur(4px);
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.25s ease;
-    }
-
-    .modal-overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .modal-card {
-      background: #ffffff;
-      border-radius: var(--radius-card);
-      padding: 2.25rem;
-      max-width: 460px;
-      width: 90%;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .modal-header h3 {
-      font-size: 1.5rem;
-    }
-
-    .btn-close {
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
-
-    .modal-sub {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin: 0.5rem 0 1.5rem;
-    }
-
-    .payment-options {
-      display: flex;
-      flex-direction: column;
-      gap: 0.85rem;
-    }
-
-    .payment-option {
-      border: 1px solid var(--border-card);
-      border-radius: var(--radius-btn);
-      padding: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .payment-option:hover {
-      background: var(--bg-card-light);
-    }
-
-    .option-details {
-      display: flex;
-      align-items: center;
-      gap: 0.85rem;
-    }
-
-    .option-icon {
-      font-size: 1.25rem;
-    }
-
-    .option-text h5 {
-      font-size: 0.95rem;
-      font-weight: 600;
-    }
-
-    .option-text p {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    /* Toast */
-    .toast-notification {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      background: var(--text-dark);
-      color: white;
-      padding: 0.85rem 1.4rem;
-      border-radius: var(--radius-btn);
-      font-size: 0.9rem;
-      transform: translateY(100px);
-      opacity: 0;
-      transition: all 0.3s ease;
-      z-index: 200;
-    }
-
-    .toast-notification.show {
-      transform: translateY(0);
-      opacity: 1;
-    }
-
-    /* Responsive */
-    @media (max-width: 900px) {
-      .hero-section {
-        grid-template-columns: 1fr;
-      }
-      .pricing-grid {
-        grid-template-columns: 1fr;
-      }
-      .pricing-header h2, .hero-section h1 {
-        font-size: 2.5rem;
-      }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <!-- NAVBAR -->
+  <!-- NAVIGATION -->
   <header class="navbar">
     <div class="nav-container">
       <a href="#" class="brand-logo">
-        Tally<span class="logo-dot">.</span>
+        Sonata<span class="logo-dot">.</span>
       </a>
       <ul class="nav-links">
-        <li><a href="#music">Product</a></li>
-        <li><a href="#numbers">Numbers</a></li>
-        <li><a href="#stories">Stories</a></li>
-        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#engine">Engine</a></li>
+        <li><a href="#acoustics">Acoustics</a></li>
+        <li><a href="#archives">Archives</a></li>
+        <li><a href="#tiers">Tiers</a></li>
       </ul>
       <div class="nav-actions">
-        <a href="#login" class="nav-link-login">Log in</a>
-        <button class="btn-dark" onclick="openPaymentModal()">Start free</button>
+        <a href="#login" class="nav-link-login">Sign in</a>
+        <button class="btn-primary" onclick="scrollToTiers()">Experience Pass</button>
       </div>
     </div>
   </header>
 
-  <!-- TOP SWITCH BANNER -->
-  <div class="switch-banner">
-    <div class="switch-info">
-      <h4>Membership Pass Switch</h4>
-      <p>Touch switch to open 3-mode payment checkout</p>
+  <!-- INTERACTIVE LEVEL CONTROLLER BANNER -->
+  <div class="level-banner">
+    <div class="level-info">
+      <span class="level-badge">Acoustic Mastery Level</span>
+      <h4 id="levelLabel">Level 02: Orchestral Chamber</h4>
+      <p>Adjust spatial rendering fidelity & hall resonance density</p>
     </div>
-    <div class="toggle-switch-container">
-      <span class="switch-label">Pass Inactive</span>
-      <label class="switch">
-        <input type="checkbox" id="paymentSwitch">
-        <span class="slider"></span>
-      </label>
+
+    <div class="level-controls">
+      <input type="range" id="spatialLevel" min="1" max="3" step="1" value="2" />
+      <div class="level-ticks">
+        <span class="tick active" onclick="setLevel(1)">L1 Studio</span>
+        <span class="tick active" onclick="setLevel(2)">L2 Chamber</span>
+        <span class="tick" onclick="setLevel(3)">L3 Grand Hall</span>
+      </div>
     </div>
+
+    <button class="btn-jump" id="toggleScrollBtn">
+      View Access Tiers ↓
+    </button>
   </div>
 
-  <!-- HERO & MUSIC SYNTH PLAYER -->
-  <section class="hero-section" id="music">
-    <div class="hero-content">
-      <h1 class="serif-title">Soundscapes that scale with your workflow</h1>
-      <p class="hero-subtext">Start free. Upgrade the week you need custom ambient audio and lossless spatial engine output.</p>
+  <!-- HERO SECTION WITH DOLBY ATMOS SPATIAL SYNTH -->
+  <section class="hero-section" id="engine">
+    <div class="hero-text">
+      <h1 class="serif-title">Classical acoustics, recreated atom by atom.</h1>
+      <p class="hero-subtext">Experience pure orchestral resonance powered by Dolby Atmos 3D spatial object tracking and live reverberation modeling.</p>
+      
+      <div class="atmos-badge-group">
+        <span class="pill-tag">Dolby Atmos® 9.1.4</span>
+        <span class="pill-tag">Lossless 24-bit / 192kHz</span>
+        <span class="pill-tag">Binaural Hall Synthesis</span>
+      </div>
     </div>
 
-    <!-- Web Audio Player -->
+    <!-- Interactive Spatial Player -->
     <div class="player-card">
-      <div class="track-meta">
-        <div class="album-art">🎧</div>
-        <div class="track-details">
-          <h3 id="trackTitle">Focus & Flow Alpha Waves</h3>
-          <p id="trackArtist">Procedural Minimal Engine</p>
+      <div class="track-header">
+        <div class="vinyl-art">🎻</div>
+        <div class="track-meta">
+          <h3 id="trackTitle">Chopin — Nocturne Op. 9 No. 2</h3>
+          <p id="trackConductor">Vienna Philharmonic Hall Dynamics</p>
         </div>
       </div>
 
-      <canvas id="visualizer"></canvas>
+      <!-- Realtime Waveform Canvas -->
+      <canvas id="visualizer" width="500" height="60"></canvas>
+
+      <div class="atmos-readout">
+        <div class="readout-item">
+          <span>Dolby Atmos Spatial Depth</span>
+          <strong id="depthVal">84%</strong>
+        </div>
+        <div class="readout-item">
+          <span>Reverb Impulse</span>
+          <strong id="reverbVal">2.4s Decay</strong>
+        </div>
+      </div>
 
       <div class="player-controls">
         <button class="btn-play" id="playBtn" aria-label="Play Track">▶</button>
-        <div class="volume-control">
+        <div class="volume-box">
           <span>🔊</span>
-          <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.7">
+          <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.75">
         </div>
       </div>
     </div>
   </section>
 
-  <!-- PRICING SECTION -->
-  <section class="pricing-section" id="pricing">
-    <div class="pricing-header">
-      <h2 class="serif-title">Pricing that scales with your client list</h2>
-      <p class="pricing-subtext">Start free. Upgrade the week you sign a second retainer.</p>
+  <!-- ACOUSTICS ARCHITECTURE (NEW CONTENT SECTION) -->
+  <section class="acoustics-section" id="acoustics">
+    <div class="section-intro">
+      <h2 class="serif-title">Crafted for the discerning classical listener</h2>
+      <p>Precision sonic geometry designed in partnership with acoustic engineers from Europe's legendary concert halls.</p>
     </div>
 
-    <div class="pricing-grid">
-      <!-- Starter Card -->
-      <div class="price-card">
-        <h3 class="card-title serif-title">Starter</h3>
+    <div class="features-grid">
+      <div class="feature-box">
+        <div class="feature-icon">🏛️</div>
+        <h4 class="serif-title">Virtual Hall Acoustics</h4>
+        <p>Real-time impulse responses calculated from Musikverein, Concertgebouw, and Royal Albert Hall.</p>
+      </div>
+
+      <div class="feature-box">
+        <div class="feature-icon">🎼</div>
+        <h4 class="serif-title">Instrument Isolation</h4>
+        <p>Isolate solo cellos, violins, or woodwinds within the Dolby Atmos 3D soundfield effortlessly.</p>
+      </div>
+
+      <div class="feature-box">
+        <div class="feature-icon">✨</div>
+        <h4 class="serif-title">Analog Warmth Modeling</h4>
+        <p>Tube preamp simulation adds subtle harmonic richness to pristine digital master recordings.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACCESS TIERS (PRICING) -->
+  <section class="tiers-section" id="tiers">
+    <div class="tiers-header">
+      <h2 class="serif-title">Access tiers tuned for your setup</h2>
+      <p class="tiers-subtext">Begin with standard stereo streaming. Elevate when ready for full Dolby Atmos 3D spatial field rendering.</p>
+    </div>
+
+    <div class="tiers-grid">
+      <!-- Solo Tier -->
+      <div class="tier-card" id="tier-1">
+        <h3 class="card-title serif-title">Soloist</h3>
         <div class="price-tag">
           <span class="price-val">$0</span>
-          <span class="price-period">/month</span>
+          <span class="price-period">/forever</span>
         </div>
-        <p class="card-desc">For testing the waters with one or two clients.</p>
+        <p class="card-desc">For relaxed listening in standard high-definition stereo.</p>
         <ul class="feature-list">
-          <li>— Unlimited time tracking</li>
-          <li>— Up to 2 active clients</li>
-          <li>— Basic invoicing</li>
+          <li>— 24-bit / 48kHz Stereo FLAC</li>
+          <li>— Access to core classical catalog</li>
+          <li>— Standard headphone equalization</li>
         </ul>
-        <button class="btn-outline-full" onclick="openPaymentModal('Starter')">Start free</button>
+        <button class="btn-secondary-full" onclick="selectTier('Soloist')">Start Free Listening</button>
       </div>
 
-      <!-- Featured Card (Independent) -->
-      <div class="price-card dark-card">
-        <span class="badge-text">Most freelancers pick this</span>
-        <h3 class="card-title serif-title">Independent</h3>
+      <!-- Featured Tier (Philharmonic) -->
+      <div class="tier-card highlight-card" id="tier-2">
+        <span class="badge-tag">Most Recommended</span>
+        <h3 class="card-title serif-title">Philharmonic</h3>
         <div class="price-tag">
-          <span class="price-val">$14</span>
+          <span class="price-val">$12</span>
           <span class="price-period">/month</span>
         </div>
-        <p class="card-desc">Everything you need to run a solo practice.</p>
+        <p class="card-desc">Full spatial depth for home theater systems & audiophile cans.</p>
         <ul class="feature-list">
-          <li>— Unlimited clients & projects</li>
-          <li>— Branded, auto-generated invoices</li>
-          <li>— Direct card & bank payments</li>
-          <li>— Weekly summary emails</li>
+          <li>— Dolby Atmos® 9.1.4 3D Soundstage</li>
+          <li>— 24-bit / 192kHz Uncompressed Audio</li>
+          <li>— Concert Hall Impulse Selection</li>
+          <li>— Offline Archival Downloading</li>
         </ul>
-        <button class="btn-primary-light" onclick="openPaymentModal('Independent')">Start 14-day trial</button>
+        <button class="btn-primary-full" onclick="selectTier('Philharmonic')">Begin 14-Day Trial</button>
       </div>
 
-      <!-- Studio Card -->
-      <div class="price-card">
-        <h3 class="card-title serif-title">Studio</h3>
+      <!-- Grand Master Tier -->
+      <div class="tier-card" id="tier-3">
+        <h3 class="card-title serif-title">Conductor</h3>
         <div class="price-tag">
-          <span class="price-val">$34</span>
+          <span class="price-val">$28</span>
           <span class="price-period">/month</span>
         </div>
-        <p class="card-desc">For small teams billing under one roof.</p>
+        <p class="card-desc">Unrestricted acoustic studio tools & multichannel stems.</p>
         <ul class="feature-list">
-          <li>— Everything in Independent</li>
-          <li>— Up to 5 teammates</li>
-          <li>— Shared client ledgers</li>
+          <li>— Everything in Philharmonic</li>
+          <li>— Multichannel Instrument Stem Extraction</li>
+          <li>— Up to 5 Member Household Pass</li>
+          <li>— Early access to archival vinyl remasters</li>
         </ul>
-        <button class="btn-outline-full" onclick="openPaymentModal('Studio')">Talk to us</button>
+        <button class="btn-secondary-full" onclick="selectTier('Conductor')">Request Studio Pass</button>
       </div>
     </div>
   </section>
 
-  <!-- 3 MODE PAYMENT MODAL -->
-  <div class="modal-overlay" id="paymentModal">
+  <!-- MODAL CHECKOUT -->
+  <div class="modal-overlay" id="tierModal">
     <div class="modal-card">
       <div class="modal-header">
-        <h3 class="serif-title">Select Payment Mode</h3>
+        <h3 class="serif-title" id="modalPlanName">Philharmonic Access</h3>
         <button class="btn-close" id="closeModalBtn">&times;</button>
       </div>
-      <p class="modal-sub">Choose your preferred gateway to proceed.</p>
+      <p class="modal-sub">Select your gateway to activate Dolby Atmos spatial listening.</p>
 
       <div class="payment-options">
-        <div class="payment-option" onclick="processPayment('Credit / Debit Card')">
+        <div class="payment-option" onclick="completeCheckout('Credit / Debit Card')">
           <div class="option-details">
-            <div class="option-icon">💳</div>
-            <div class="option-text">
+            <span class="opt-icon">💳</span>
+            <div>
               <h5>Credit or Debit Card</h5>
-              <p>Visa, Mastercard, American Express</p>
+              <p>Visa, Mastercard, Amex</p>
             </div>
           </div>
           <span>→</span>
         </div>
 
-        <div class="payment-option" onclick="processPayment('Express Wallet')">
+        <div class="payment-option" onclick="completeCheckout('Apple Pay / Wallet')">
           <div class="option-details">
-            <div class="option-icon">📱</div>
-            <div class="option-text">
+            <span class="opt-icon"></span>
+            <div>
               <h5>Express Wallet</h5>
               <p>Apple Pay, Google Pay, One-Tap</p>
             </div>
@@ -706,12 +222,12 @@
           <span>→</span>
         </div>
 
-        <div class="payment-option" onclick="processPayment('Direct Wire / Crypto')">
+        <div class="payment-option" onclick="completeCheckout('Direct Wire Transfer')">
           <div class="option-details">
-            <div class="option-icon">🏦</div>
-            <div class="option-text">
-              <h5>Direct Bank Wire / Crypto</h5>
-              <p>Ach Transfer, USDC, Solana</p>
+            <span class="opt-icon">🏛️</span>
+            <div>
+              <h5>Bank Wire Transfer</h5>
+              <p>Direct ACH or International SWIFT</p>
             </div>
           </div>
           <span>→</span>
@@ -720,50 +236,83 @@
     </div>
   </div>
 
-  <div class="toast-notification" id="toast"></div>
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast" id="toast"></div>
 
   <!-- JAVASCRIPT LOGIC -->
   <script>
-    const paymentSwitch = document.getElementById('paymentSwitch');
-    const paymentModal = document.getElementById('paymentModal');
+    // Smooth Scroll to Tiers
+    function scrollToTiers() {
+      document.getElementById('tiers').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    document.getElementById('toggleScrollBtn').addEventListener('click', scrollToTiers);
+
+    // Interactive Level Slider
+    const spatialLevel = document.getElementById('spatialLevel');
+    const levelLabel = document.getElementById('levelLabel');
+    const depthVal = document.getElementById('depthVal');
+    const reverbVal = document.getElementById('reverbVal');
+    const ticks = document.querySelectorAll('.level-ticks .tick');
+
+    const levelData = {
+      1: { name: 'Level 01: Intimate Studio', depth: '45%', reverb: '0.8s Decay', highlight: 'tier-1' },
+      2: { name: 'Level 02: Orchestral Chamber', depth: '84%', reverb: '2.4s Decay', highlight: 'tier-2' },
+      3: { name: 'Level 03: Grand Cathedral Hall', depth: '100%', reverb: '4.8s Decay', highlight: 'tier-3' }
+    };
+
+    spatialLevel.addEventListener('input', (e) => {
+      setLevel(e.target.value);
+    });
+
+    function setLevel(lvl) {
+      lvl = parseInt(lvl);
+      spatialLevel.value = lvl;
+      levelLabel.textContent = levelData[lvl].name;
+      depthVal.textContent = levelData[lvl].depth;
+      reverbVal.textContent = levelData[lvl].reverb;
+
+      ticks.forEach((tick, index) => {
+        if (index < lvl) tick.classList.add('active');
+        else tick.classList.remove('active');
+      });
+
+      // Highlight corresponding pricing tier card briefly
+      document.querySelectorAll('.tier-card').forEach(card => card.classList.remove('card-pulse'));
+      const activeCard = document.getElementById(levelData[lvl].highlight);
+      if (activeCard) {
+        activeCard.classList.add('card-pulse');
+        setTimeout(() => activeCard.classList.remove('card-pulse'), 1500);
+      }
+    }
+
+    // Modal Logic
+    const tierModal = document.getElementById('tierModal');
     const closeModalBtn = document.getElementById('closeModalBtn');
+    const modalPlanName = document.getElementById('modalPlanName');
     const toast = document.getElementById('toast');
 
-    paymentSwitch.addEventListener('change', () => {
-      if (paymentSwitch.checked) {
-        openPaymentModal();
-      } else {
-        showToast("Pass deactivated.");
-      }
-    });
+    function selectTier(planName) {
+      modalPlanName.textContent = `${planName} Tier Access`;
+      tierModal.classList.add('active');
+    }
 
     closeModalBtn.addEventListener('click', () => {
-      paymentModal.classList.remove('active');
-      paymentSwitch.checked = false;
+      tierModal.classList.remove('active');
     });
 
-    function openPaymentModal(planName = '') {
-      paymentModal.classList.add('active');
-      if (planName) {
-        showToast(`Selected Plan: ${planName}`);
-      }
+    function completeCheckout(gateway) {
+      tierModal.classList.remove('active');
+      showToast(`Activated Dolby Atmos Pass via ${gateway}!`);
     }
 
-    function processPayment(methodName) {
-      paymentModal.classList.remove('active');
-      paymentSwitch.checked = true;
-      showToast(`Activated via ${methodName}! Upgrade successful.`);
-    }
-
-    function showToast(message) {
-      toast.textContent = message;
+    function showToast(msg) {
+      toast.textContent = msg;
       toast.classList.add('show');
-      setTimeout(() => {
-        toast.classList.remove('show');
-      }, 3500);
+      setTimeout(() => toast.classList.remove('show'), 3500);
     }
 
-    /* Web Audio Synthesizer */
+    // Web Audio Synthesizer Engine
     let audioCtx;
     let oscillator;
     let gainNode;
@@ -785,17 +334,20 @@
       oscillator = audioCtx.createOscillator();
       gainNode = audioCtx.createGain();
 
-      oscillator.type = 'sine';
-      oscillator.frequency.setValueAtTime(220, audioCtx.currentTime);
-      gainNode.gain.setValueAtTime(volumeSlider.value * 0.2, audioCtx.currentTime);
+      // Warm triangle wave for cello-like overtone
+      oscillator.type = 'triangle';
+      oscillator.frequency.setValueAtTime(261.63, audioCtx.currentTime); // C4 note
       
+      gainNode.gain.setValueAtTime(volumeSlider.value * 0.15, audioCtx.currentTime);
+
       oscillator.connect(gainNode);
       gainNode.connect(audioCtx.destination);
-      
+
       oscillator.start();
       isPlaying = true;
       playBtn.textContent = '❚❚';
       drawVisualizer();
+      showToast("Dolby Atmos Spatial Audio Engine Playing");
     }
 
     function stopSynth() {
@@ -808,19 +360,17 @@
     }
 
     playBtn.addEventListener('click', () => {
-      if (!isPlaying) {
-        startSynth();
-      } else {
-        stopSynth();
-      }
+      if (!isPlaying) startSynth();
+      else stopSynth();
     });
 
     volumeSlider.addEventListener('input', (e) => {
       if (gainNode) {
-        gainNode.gain.setValueAtTime(e.target.value * 0.2, audioCtx.currentTime);
+        gainNode.gain.setValueAtTime(e.target.value * 0.15, audioCtx.currentTime);
       }
     });
 
+    // Gentle classical wave rendering
     function drawVisualizer() {
       if (!isPlaying) {
         canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
@@ -829,17 +379,17 @@
 
       requestAnimationFrame(drawVisualizer);
       canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
-      
+
       canvasCtx.lineWidth = 2;
-      canvasCtx.strokeStyle = '#18181b';
+      canvasCtx.strokeStyle = '#8C6D58'; // Warm terracotta stroke
       canvasCtx.beginPath();
 
       const sliceWidth = canvas.width / 100;
       let x = 0;
-      const time = Date.now() * 0.003;
+      const time = Date.now() * 0.002;
 
       for (let i = 0; i < 100; i++) {
-        const y = (Math.sin(time + i * 0.1) * 12) + (canvas.height / 2);
+        const y = (Math.sin(time + i * 0.08) * 14) + (canvas.height / 2);
         if (i === 0) canvasCtx.moveTo(x, y);
         else canvasCtx.lineTo(x, y);
         x += sliceWidth;
