@@ -3,215 +3,775 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SaaSify — Modern Platform Clone</title>
-  <link rel="stylesheet" href="styles.css" />
-  <!-- Google Font -->
+  <title>Aura — Minimal Aesthetic Soundscapes</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ==========================================================================
+       1. CSS VARIABLES & LIGHT MINIMAL THEME
+       ========================================================================== */
+    :root {
+      --bg-base: #f7f9fa;
+      --bg-card: #ffffff;
+      --bg-glass: rgba(255, 255, 255, 0.75);
+      --accent-rose: #f43f5e;
+      --accent-soft-rose: #ffe4e6;
+      --accent-lavender: #8b5cf6;
+      --accent-soft-lavender: #f3e8ff;
+      --accent-mint: #10b981;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border-subtle: #e2e8f0;
+      --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.03);
+      --shadow-lg: 0 20px 40px rgba(100, 116, 139, 0.08);
+      --font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --radius-sm: 10px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(244, 63, 94, 0.04) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.05) 0%, transparent 40%);
+    }
+
+    /* ==========================================================================
+       2. NAVBAR & HEADER
+       ========================================================================== */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--bg-glass);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 1.25rem 2rem;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      text-decoration: none;
+    }
+
+    .logo-badge {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-rose), var(--accent-lavender));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 0.9rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-main);
+    }
+
+    /* ==========================================================================
+       3. TOP ACTION SWITCH (PRO MEMBERSHIP TRIGGER)
+       ========================================================================== */
+    .switch-banner {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem 2rem;
+      max-width: 1200px;
+      margin: 1.5rem auto 0;
+      width: calc(100% - 3rem);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .switch-info h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .switch-info p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .toggle-switch-container {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .switch-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 52px;
+      height: 28px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: var(--border-subtle);
+      transition: 0.3s ease;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: 0.3s ease;
+      border-radius: 50%;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    input:checked + .slider {
+      background-color: var(--accent-lavender);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(24px);
+    }
+
+    /* ==========================================================================
+       4. HERO & AUDIO PLAYER SECTION
+       ========================================================================== */
+    .hero-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .hero-text h1 {
+      font-size: 2.75rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .hero-text p {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    /* Audio Player Card */
+    .player-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .track-meta {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .album-art {
+      width: 72px;
+      height: 72px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, #fce7f3, #e0e7ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+    }
+
+    .track-details h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+    }
+
+    .track-details p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    canvas#visualizer {
+      width: 100%;
+      height: 60px;
+      border-radius: var(--radius-sm);
+      background: rgba(241, 245, 249, 0.6);
+    }
+
+    .player-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .btn-play {
+      background: var(--text-main);
+      color: white;
+      border: none;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+
+    .btn-play:hover {
+      transform: scale(1.05);
+      background-color: var(--accent-lavender);
+    }
+
+    .volume-control {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       5. MUSIC DISCOVERY GRID
+       ========================================================================== */
+    .discovery-section {
+      max-width: 1200px;
+      margin: 2rem auto 4rem;
+      padding: 0 1.5rem;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .sound-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      cursor: pointer;
+    }
+
+    .sound-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .card-cover {
+      height: 160px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .card-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       6. PAYMENT MODAL (3 MODES)
+       ========================================================================== */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.4);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      max-width: 480px;
+      width: 90%;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border-subtle);
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+    }
+
+    .modal-overlay.active .modal-card {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-header h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .btn-close {
+      background: none;
+      border: none;
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    /* 3 Payment Options */
+    .payment-options {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .payment-option {
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .payment-option:hover {
+      border-color: var(--accent-lavender);
+      background-color: var(--accent-soft-lavender);
+    }
+
+    .option-details {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .option-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--bg-base);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    .option-text h5 {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .option-text p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Status Notification */
+    .toast-notification {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--text-main);
+      color: white;
+      padding: 0.85rem 1.5rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      box-shadow: var(--shadow-lg);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 150;
+    }
+
+    .toast-notification.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero-container {
+        grid-template-columns: 1fr;
+      }
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- ==================== HEADER / NAVBAR ==================== -->
+  <!-- NAVBAR -->
   <header class="navbar">
     <div class="nav-container">
       <a href="#" class="brand-logo">
-        <span class="logo-icon">⚡</span> SaaSify
+        <span class="logo-badge">✦</span> Aura Sound
       </a>
-      
-      <nav class="nav-links">
-        <a href="#features" class="nav-link">Features</a>
-        <a href="#solutions" class="nav-link">Solutions</a>
-        <a href="#pricing" class="nav-link">Pricing</a>
-        <a href="#docs" class="nav-link">Docs</a>
-      </nav>
-
-      <div class="nav-actions">
-        <a href="#login" class="btn btn-secondary">Log In</a>
-        <a href="#signup" class="btn btn-primary">Get Started</a>
-      </div>
-
-      <!-- Mobile Menu Toggle -->
-      <button class="mobile-toggle" aria-label="Toggle Menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+      <ul class="nav-links">
+        <li><a href="#discover">Discover</a></li>
+        <li><a href="#library">Library</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
     </div>
   </header>
 
-  <!-- ==================== MAIN PAGE GRID ==================== -->
-  <main class="page-grid">
+  <!-- TOP SWITCH BANNER (TRIGGERS PAYMENT MODAL) -->
+  <div class="switch-banner">
+    <div class="switch-info">
+      <h4>Aura Premium Sound Pass</h4>
+      <p>Touch switch to unlock spatial audio & lossless soundscapes</p>
+    </div>
+    <div class="toggle-switch-container">
+      <span class="switch-label">Pass Inactive</span>
+      <label class="switch">
+        <input type="checkbox" id="paymentSwitch">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
 
-    <!-- HERO SECTION -->
-    <section class="hero-section">
-      <div class="hero-content">
-        <!-- Required μid Badge Claim -->
-        <div class="uid-badge">
-          <span class="badge-dot"></span>
-          <h3>Website Layout Clone done by &lt;your_μid&gt;</h3>
-        </div>
+  <!-- HERO & INTERACTIVE AUDIO PLAYER -->
+  <main class="hero-container">
+    <div class="hero-text">
+      <h1>Pure light, minimal ambient soundscapes.</h1>
+      <p>Designed for deep concentration, peaceful reflection, and effortless daily focus.</p>
+    </div>
 
-        <h1 class="hero-title">Automate your entire deployment workflow in minutes.</h1>
-        <p class="hero-subtitle">
-          Connect your repositories, configure modern serverless infrastructure, and launch high-performance web applications seamlessly.
-        </p>
-
-        <div class="hero-cta-group">
-          <a href="#" class="btn btn-primary btn-large">Start Free Trial →</a>
-          <a href="#" class="btn btn-outline btn-large">View Documentation</a>
-        </div>
-
-        <div class="hero-metrics">
-          <div class="metric-item">
-            <span class="metric-val">99.99%</span>
-            <span class="metric-label">Uptime SLA</span>
-          </div>
-          <div class="metric-item">
-            <span class="metric-val">&lt;50ms</span>
-            <span class="metric-label">Global Latency</span>
-          </div>
-          <div class="metric-item">
-            <span class="metric-val">10M+</span>
-            <span class="metric-label">Deployments</span>
-          </div>
+    <!-- Live Audio Synthesizer Player -->
+    <div class="player-card">
+      <div class="track-meta">
+        <div class="album-art">🎧</div>
+        <div class="track-details">
+          <h3 id="trackTitle">Ethereal Soft Waves</h3>
+          <p id="trackArtist">Procedural Light Engine</p>
         </div>
       </div>
 
-      <div class="hero-preview">
-        <div class="terminal-card">
-          <div class="terminal-header">
-            <span class="dot dot-red"></span>
-            <span class="dot dot-yellow"></span>
-            <span class="dot dot-green"></span>
-            <span class="terminal-title">bash — saasify deploy</span>
-          </div>
-          <div class="terminal-body">
-            <p class="code-line"><span class="prompt">$</span> saasify init my-app</p>
-            <p class="code-line success">✔ Detected Next.js project architecture</p>
-            <p class="code-line"><span class="prompt">$</span> saasify deploy --prod</p>
-            <p class="code-line info">ℹ Building production bundle...</p>
-            <p class="code-line info">ℹ Deploying to 32 edge locations...</p>
-            <p class="code-line success">🚀 Live at: https://my-app.saasify.dev</p>
-          </div>
+      <canvas id="visualizer"></canvas>
+
+      <div class="player-controls">
+        <button class="btn-play" id="playBtn" aria-label="Play Track">▶</button>
+        <div class="volume-control">
+          <span>🔊</span>
+          <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.7">
         </div>
       </div>
-    </section>
-
-    <!-- FEATURES SECTION (GRID) -->
-    <section id="features" class="features-section">
-      <div class="section-header">
-        <span class="section-tag">PLATFORM CAPABILITIES</span>
-        <h2>Built for modern engineering teams</h2>
-        <p>Everything you need to ship software faster and safer.</p>
-      </div>
-
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="card-icon">⚡</div>
-          <h3>Instant Edge Builds</h3>
-          <p>Global CDN edge caching guarantees sub-second page loads anywhere in the world.</p>
-          <a href="#" class="card-link">Learn about Edge →</a>
-        </div>
-
-        <div class="feature-card">
-          <div class="card-icon">🛡️</div>
-          <h3>Automated Security</h3>
-          <p>Zero-configuration SSL, DDoS mitigation, and enterprise role-based access control.</p>
-          <a href="#" class="card-link">Explore Security →</a>
-        </div>
-
-        <div class="feature-card">
-          <div class="card-icon">🔄</div>
-          <h3>Continuous CI/CD</h3>
-          <p>Automatic git push previews for every branch, pull request, and commit.</p>
-          <a href="#" class="card-link">View Workflows →</a>
-        </div>
-
-        <div class="feature-card">
-          <div class="card-icon">📊</div>
-          <h3>Real-time Analytics</h3>
-          <p>Deep insight into Core Web Vitals, API request spikes, and server logs.</p>
-          <a href="#" class="card-link">See Analytics →</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- PRICING SECTION (GRID + FLEX) -->
-    <section id="pricing" class="pricing-section">
-      <div class="section-header">
-        <span class="section-tag">TRANSPARENT PRICING</span>
-        <h2>Simple pricing for team scaling</h2>
-      </div>
-
-      <div class="pricing-grid">
-        <div class="pricing-card">
-          <div class="plan-header">
-            <h3>Starter</h3>
-            <p class="plan-desc">Perfect for side projects and individual developers.</p>
-            <div class="plan-price"><span class="currency">$</span>0 <span class="period">/ mo</span></div>
-          </div>
-          <ul class="plan-features">
-            <li>✓ Up to 3 projects</li>
-            <li>✓ 100 GB Bandwidth</li>
-            <li>✓ Community Support</li>
-          </ul>
-          <a href="#" class="btn btn-outline btn-block">Get Started</a>
-        </div>
-
-        <div class="pricing-card featured">
-          <div class="popular-badge">MOST POPULAR</div>
-          <div class="plan-header">
-            <h3>Pro Team</h3>
-            <p class="plan-desc">For growing startups demanding performance & uptime.</p>
-            <div class="plan-price"><span class="currency">$</span>49 <span class="period">/ mo</span></div>
-          </div>
-          <ul class="plan-features">
-            <li>✓ Unlimited projects</li>
-            <li>✓ 1 TB Bandwidth</li>
-            <li>✓ Dedicated Edge Nodes</li>
-            <li>✓ 24/7 Priority Support</li>
-          </ul>
-          <a href="#" class="btn btn-primary btn-block">Start 14-Day Trial</a>
-        </div>
-      </div>
-    </section>
-
+    </div>
   </main>
 
-  <!-- ==================== FOOTER ==================== -->
-  <footer class="site-footer">
-    <div class="footer-container">
-      <div class="footer-brand">
-        <a href="#" class="brand-logo"><span class="logo-icon">⚡</span> SaaSify</a>
-        <p>Empowering developer productivity globally.</p>
+  <!-- MUSIC DISCOVERY GRID -->
+  <section class="discovery-section" id="discover">
+    <h2 class="section-title">Curated Sound Collections</h2>
+    <div class="cards-grid">
+      <div class="sound-card" onclick="loadTrack('Pastel Horizon', '#fee2e2')">
+        <div class="card-cover" style="background: linear-gradient(135deg, #fee2e2, #fef3c7);">🌸</div>
+        <h4 class="card-title">Pastel Horizon</h4>
+        <p class="card-subtitle">Soft ambient synth pads</p>
       </div>
 
-      <div class="footer-links-grid">
-        <div class="footer-col">
-          <h4>Product</h4>
-          <a href="#">Features</a>
-          <a href="#">Integrations</a>
-          <a href="#">Enterprise</a>
+      <div class="sound-card" onclick="loadTrack('Morning Glass', '#e0e7ff')">
+        <div class="card-cover" style="background: linear-gradient(135deg, #e0e7ff, #f3e8ff);">✨</div>
+        <h4 class="card-title">Morning Glass</h4>
+        <p class="card-subtitle">Minimalist acoustic textures</p>
+      </div>
+
+      <div class="sound-card" onclick="loadTrack('Luminous Rain', '#d1fae5')">
+        <div class="card-cover" style="background: linear-gradient(135deg, #d1fae5, #e0f2fe);">💧</div>
+        <h4 class="card-title">Luminous Rain</h4>
+        <p class="card-subtitle">Gentle organic rainfall</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 MODE PAYMENT MODAL -->
+  <div class="modal-overlay" id="paymentModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Select Payment Method</h3>
+        <button class="btn-close" id="closeModalBtn">&times;</button>
+      </div>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+        Choose your preferred gateway to activate your Premium Pass.
+      </p>
+
+      <div class="payment-options">
+        <!-- Payment Mode 1: Credit / Debit Card -->
+        <div class="payment-option" onclick="processPayment('Credit / Debit Card')">
+          <div class="option-details">
+            <div class="option-icon">💳</div>
+            <div class="option-text">
+              <h5>Credit or Debit Card</h5>
+              <p>Visa, Mastercard, American Express</p>
+            </div>
+          </div>
+          <span>→</span>
         </div>
-        <div class="footer-col">
-          <h4>Resources</h4>
-          <a href="#">Documentation</a>
-          <a href="#">API Reference</a>
-          <a href="#">Community</a>
+
+        <!-- Payment Mode 2: Apple Pay / Google Pay -->
+        <div class="payment-option" onclick="processPayment('Express Wallet')">
+          <div class="option-details">
+            <div class="option-icon">📱</div>
+            <div class="option-text">
+              <h5>Express Wallet</h5>
+              <p>Apple Pay, Google Pay, One-Tap</p>
+            </div>
+          </div>
+          <span>→</span>
         </div>
-        <div class="footer-col">
-          <h4>Company</h4>
-          <a href="#">About Us</a>
-          <a href="#">Careers</a>
-          <a href="#">Contact</a>
+
+        <!-- Payment Mode 3: Crypto / Web3 Wallet -->
+        <div class="payment-option" onclick="processPayment('Crypto Wallet')">
+          <div class="option-details">
+            <div class="option-icon">🪙</div>
+            <div class="option-text">
+              <h5>Crypto Currency</h5>
+              <p>USDC, Ethereum, Solana</p>
+            </div>
+          </div>
+          <span>→</span>
         </div>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 SaaSify Inc. All rights reserved.</p>
-    </div>
-  </footer>
+  </div>
 
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast-notification" id="toast"></div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // ==========================================
+    // 1. PAYMENT MODAL CONTROLLER (TOGGLE SWITCH)
+    // ==========================================
+    const paymentSwitch = document.getElementById('paymentSwitch');
+    const paymentModal = document.getElementById('paymentModal');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const toast = document.getElementById('toast');
+
+    paymentSwitch.addEventListener('change', () => {
+      if (paymentSwitch.checked) {
+        paymentModal.classList.add('active');
+      } else {
+        showToast("Pass deactivated.");
+      }
+    });
+
+    closeModalBtn.addEventListener('click', () => {
+      paymentModal.classList.remove('active');
+      paymentSwitch.checked = false;
+    });
+
+    function processPayment(methodName) {
+      paymentModal.classList.remove('active');
+      showToast(`Activated via ${methodName}! Enjoy Premium.`);
+    }
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3500);
+    }
+
+    // ==========================================
+    // 2. PROCEDURAL AUDIO SYNTHESIZER & VISUALIZER
+    // ==========================================
+    let audioCtx;
+    let oscillator;
+    let gainNode;
+    let isPlaying = false;
+
+    const playBtn = document.getElementById('playBtn');
+    const volumeSlider = document.getElementById('volumeSlider');
+    const canvas = document.getElementById('visualizer');
+    const canvasCtx = canvas.getContext('2d');
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+    }
+
+    function startSynth() {
+      initAudio();
+      oscillator = audioCtx.createOscillator();
+      gainNode = audioCtx.createGain();
+
+      oscillator.type = 'sine';
+      oscillator.frequency.setValueAtTime(220, audioCtx.currentTime); // Soft A3 note
+      
+      gainNode.gain.setValueAtTime(volumeSlider.value * 0.2, audioCtx.currentTime);
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+      
+      oscillator.start();
+      isPlaying = true;
+      playBtn.textContent = '❚❚';
+      drawVisualizer();
+    }
+
+    function stopSynth() {
+      if (oscillator) {
+        oscillator.stop();
+        oscillator.disconnect();
+      }
+      isPlaying = false;
+      playBtn.textContent = '▶';
+    }
+
+    playBtn.addEventListener('click', () => {
+      if (!isPlaying) {
+        startSynth();
+      } else {
+        stopSynth();
+      }
+    });
+
+    volumeSlider.addEventListener('input', (e) => {
+      if (gainNode) {
+        gainNode.gain.setValueAtTime(e.target.value * 0.2, audioCtx.currentTime);
+      }
+    });
+
+    // Minimal Waveform Visualizer
+    let animFrame;
+    function drawVisualizer() {
+      if (!isPlaying) {
+        canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+        return;
+      }
+
+      animFrame = requestAnimationFrame(drawVisualizer);
+      canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      canvasCtx.lineWidth = 2;
+      canvasCtx.strokeStyle = '#8b5cf6';
+      canvasCtx.beginPath();
+
+      const sliceWidth = canvas.width / 100;
+      let x = 0;
+      const time = Date.now() * 0.003;
+
+      for (let i = 0; i < 100; i++) {
+        const y = (Math.sin(time + i * 0.1) * 15) + (canvas.height / 2);
+        if (i === 0) canvasCtx.moveTo(x, y);
+        else canvasCtx.lineTo(x, y);
+        x += sliceWidth;
+      }
+
+      canvasCtx.stroke();
+    }
+
+    function loadTrack(name) {
+      document.getElementById('trackTitle').textContent = name;
+      showToast(`Loaded soundscape: ${name}`);
+      if (isPlaying) {
+        stopSynth();
+        startSynth();
+      }
+    }
+  </script>
 </body>
 </html>
